@@ -1,20 +1,18 @@
 N, K = map(int, input().split(" "))
 temperature = input().split(" ")
 
-sum = []
+sum = 0
 
 count = 0
-max = -1000000
+max = -1000000000
 
 for i in range(N - K + 1):
-    sum.append(0)
+    sum = 0
     for j in range(K):
-        sum[i] += int(temperature[j + count]) # j + count로 하면 다음 번에는 temperature[1]부터 더할 수 있음
+        sum += int(temperature[j + count]) # j + count로 하면 다음 번에는 temperature[1]부터 더할 수 있음
     count += 1
-
-for i in range(len(sum)):
-    if(sum[i] > max):
-        max = sum[i]
+    if(sum > max):
+        max = sum
 
 print(max)
 # 런타임 에러가 남
