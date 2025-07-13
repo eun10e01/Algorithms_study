@@ -1,5 +1,5 @@
-N, K = map(int, input().split(" "))
-temperature = list(map(int, input().split(" ")))
+N, K = map(int, input().split())
+temperature = list(map(int, input().split())) # split(" ")로 적으면 런타임 에러가 날 수 있음
 
 sum = 0
 
@@ -14,4 +14,3 @@ for i in range(N - K + 1):
         max = sum
 
 print(max)
-# 런타임 에러가 남
