@@ -2,7 +2,7 @@
 This repository contains my solution to algorithmic problems.
 
 ### Goals
-+ At least three questions a week
++ At least one questions a day
 + incorrect answer arrangement and review
 
 ### Reference
