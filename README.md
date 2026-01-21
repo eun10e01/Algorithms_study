@@ -6,7 +6,7 @@ This repository contains my solution to algorithmic problems.
 + incorrect answer arrangement and review
 
 ### Blog
-[개발일지](https://10e01.tistory.com/)
+[0e0 개발일지](https://10e01.tistory.com/)
 
 ### Reference
 + [Baekjoon](https://www.acmicpc.net/)
