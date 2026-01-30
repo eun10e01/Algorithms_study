@@ -1,24 +1,46 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
- 
-public class Main {
-    public static void main(String[] args) throws NumberFormatException, IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        long hurt = Long.parseLong(br.readLine());
-        long num = Long.parseLong(br.readLine());
-        long result;
-        if(hurt == 1) {
-            result = (long)(num*8);
-        }else if(hurt == 2) {
-            result = (long)(1+(num/2)*8+(num%2)*6);
-        }else if(hurt == 3) {
-            result = (long)(2+(num/2)*8+(num%2)*4);
-        }else if(hurt == 4) {
-            result = (long)(3+(num/2)*8+(num%2)*2);
-        }else {
-            result = (long)(4 + num*8);
+import java.util.Scanner;
+
+public class test
+{
+    public static void main(String[] args)
+    {
+        Scanner sc = new Scanner(System.in);
+
+        long hurt = sc.nextLong();
+        long count = sc.nextLong();
+
+        long ans = 0;
+
+        if(count == 0)
+        {
+            ans = hurt - 1;
         }
-        System.out.println(result);
+        else
+        {
+            if(hurt == 1 || hurt == 5)
+            {
+                ans += (8 * count);
+                ans += (hurt - 1);
+            }
+            else if(hurt == 2)
+            {
+                ans += (count / 2) * 8;
+                ans += (count % 2) * 6 + 1;
+            }
+            else if(hurt == 3)
+            {
+                ans += (count / 2) * 8;
+                ans += (count % 2) * 4 + 2;
+            }
+            else if(hurt == 4)
+            {
+                ans += (count / 2) * 8;
+                ans += (count % 2) * 2 + 3;
+            }
+        }
+
+        System.out.println(ans);
+
+        sc.close();
     }
 }
