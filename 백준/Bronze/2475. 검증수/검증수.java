@@ -1,22 +1,21 @@
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class Main
 {
-    public static void main(String[] args)
+    public static void main(String[] args) throws IOException
     {
-        Scanner sc = new Scanner(System.in);
-        
-        long nums[] = new long[5];
-        long ans = 0;
-        
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        int ans = 0;
+
         for(int i = 0; i < 5; i++)
         {
-            nums[i] = sc.nextLong();
-            ans += (nums[i] * nums[i]);
+            int n = Integer.parseInt(st.nextToken());
+            ans += (n * n);
         }
-        
+
         System.out.println(ans % 10);
-        
-        sc.close();
     }
 }
