@@ -13,45 +13,25 @@ public class Main
 
         int J = Integer.parseInt(br.readLine());
 
-        Deque<Integer> basket = new ArrayDeque<>();
-
-        for(int i = 1; i <= M; i++)
-        {
-            basket.addLast(i);
-        }
-
+        int left = 1;
+        int right = M;
         int move = 0;
 
         for(int i = 0; i < J; i++)
         {
             int apple = Integer.parseInt(br.readLine());
 
-            if(!basket.contains(apple))
+            if(apple > right)
             {
-                if(basket.peekLast() < apple)
-                {
-                    int temp = basket.peekLast();
-
-                    while(!basket.contains(apple))
-                    {
-                        temp++;
-                        basket.addLast(temp);
-                        basket.pollFirst();
-                        move++;
-                    }
-                }
-                else if(basket.peekFirst() > apple)
-                {
-                    int temp = basket.peekFirst();
-
-                    while(!basket.contains(apple))
-                    {
-                        temp--;
-                        basket.addFirst(temp);
-                        basket.pollLast();
-                        move++;
-                    }
-                }
+                move += apple - right;
+                right = apple;
+                left = right - M + 1;
+            }
+            else if(apple < left)
+            {
+                move += left - apple;
+                left = apple;
+                right = left + M - 1;
             }
         }
 
