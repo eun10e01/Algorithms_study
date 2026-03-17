@@ -11,20 +11,17 @@ public class Main
         int N = Integer.parseInt(st.nextToken());
         int k = Integer.parseInt(st.nextToken());
 
-        PriorityQueue<Integer> score = new PriorityQueue<>(Collections.reverseOrder());
+        int score[] = new int[N];
 
         st = new StringTokenizer(br.readLine());
 
         for(int i = 0; i < N; i++)
         {
-            score.add(Integer.parseInt(st.nextToken()));
+            score[i] = Integer.parseInt(st.nextToken());
         }
 
-        for(int i = 0; i < k - 1; i++)
-        {
-            score.poll();
-        }
+        Arrays.sort(score);
 
-        System.out.println(score.poll());
+        System.out.println(score[N - k]);
     }
 }
