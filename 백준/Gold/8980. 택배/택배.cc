@@ -1,140 +1,71 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <queue>
-#include <deque>
+#include <tuple>
 
 using namespace std;
 
 int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+
 	int N, C, M;
 	cin >> N >> C >> M;
 
-	priority_queue<tuple<int, int, int>, vector<tuple<int, int, int>>, greater<tuple<int, int, int>>> boxes;
-	deque<pair<int, int>> truck;
+	vector<tuple<int, int, int>> boxes;
+	vector<int> capacity(N - 1);
 
 	int start, end, cnt;
-
-	//택배들을 보내는 마을(start) 기준으로 정렬
-	for (int i = 0; i < M; i++) {
-		cin >> start >> end >> cnt;
-
-		boxes.push(make_tuple(start, end, cnt));
-	}
-
 	int ans = 0;
 
-	//마을 수만큼 반복
-	for (int i = 1; i <= N; i++) {
-		//택배 배송하기
-		while (true) {
-			//1번 마을에는 배송할 택배가 없음.
-			if (i == 1 || truck.empty()) {
-				break;
-			}
+	for (int i = 0; i < M; i++) {
+		cin >> start >> end >> cnt;
+		
+		//배송지 기준 정렬, 배송지가 같으면 출발지 번호가 큰 것 먼저 처리해야 함.(출발지 번호가 큰게 구간이 짧을 가능성이 크기 때문)
+		boxes.push_back(make_tuple(end, start, cnt));
+	}
 
-			pair<int, int> truck_temp = truck.front();
+	sort(boxes.begin(), boxes.end(), [](auto a, auto b) {
+		if (get<1>(a) == get<1>(b)) { //배송지가 같다면
+			return get<1>(a) > get<1>(b); //출발지가 큰 번호가 먼저
+		}
+		return get<0>(a) < get<0>(b); //배송지가 작은것이 먼저
+	});
 
-			//배송지가 현재 마을이 아니면 break
-			if (get<0>(truck_temp) != i) {
-				break;
-			}
+	for (int i = 0; i < capacity.size(); i++) {
+		capacity[i] = C;
+	}
 
-			truck.pop_front();
-			C += get<1>(truck_temp);
-			ans += get<1>(truck_temp); //배송완료
+	for (int i = 0; i < M; i++) {
+		tuple<int, int, int> temp = boxes[i];
+
+		int s = get<1>(temp) - 1; //인덱스 번호이기 때문
+		int e = get<0>(temp) - 2; //인덱스 번호이고, 구간 용량을 판단하고 있기 때문에 -1을 더 해주어야 함.
+		int box_cnt = get<2>(temp);
+
+		int min_capacity = C;
+
+		for (int j = s; j <= e; j++) {
+			min_capacity = min(min_capacity, capacity[j]);
 		}
 
-		//택배를 싣기
-		while (true) {
-			//택배가 없으면 break
-			if (boxes.empty()) {
-				break;
+		if (box_cnt <= min_capacity) {
+			for (int j = s; j <= e; j++) {
+				capacity[j] -= box_cnt;
 			}
 
-			tuple<int, int, int> boxes_temp = boxes.top();
-
-			//택배를 보내는 마을이 현재 마을이 아니라면 break;
-			if (get<0>(boxes_temp) != i) {
-				break;
+			ans += box_cnt;
+		}
+		else {
+			for (int j = s; j <= e; j++) {
+				capacity[j] -= min_capacity;
 			}
 
-			boxes.pop();
-
-			//트럭이 현재 비어있다면 용량만큼의 택배를 그냥 넣기
-			if (truck.empty()) {
-				if (get<2>(boxes_temp) < C) {
-					truck.push_back(make_pair(get<1>(boxes_temp), get<2>(boxes_temp)));
-					C -= get<2>(boxes_temp);
-				}
-				else {
-					if (C != 0) {
-						truck.push_back(make_pair(get<1>(boxes_temp), C));
-						C = 0;
-					}
-				}
-			}
-			else { //비어있지 않다면 택배를 넣고 정렬하기
-				if (get<2>(boxes_temp) < C) {
-					truck.push_back(make_pair(get<1>(boxes_temp), get<2>(boxes_temp)));
-					C -= get<2>(boxes_temp);
-
-					sort(truck.begin(), truck.end());
-				}
-				else {
-					pair<int, int> temp = truck.back();
-
-					if (C == 0) {
-						//만약 택배에 빈자리가 없을 경우 >> (가장 마지막의 택배 배송지 > 현재 택배 배송지)라면 >> 가장 마지막의 택배를 버리고 현재 택배를 트럭에 넣는다.
-						if (get<1>(boxes_temp) < get<0>(temp)) {
-							truck.pop_back();
-							C += get<1>(temp);
-
-							if (get<2>(boxes_temp) < C) {
-								truck.push_back(make_pair(get<1>(boxes_temp), get<2>(boxes_temp)));
-								C -= get<2>(boxes_temp);
-							}
-							else {
-								truck.push_back(make_pair(get<1>(boxes_temp), C));
-								C = 0;
-							}
-
-							sort(truck.begin(), truck.end());
-						}
-					}
-					else {
-						if (C + get<1>(temp) <= get<2>(boxes_temp)) {
-							truck.pop_back();
-							C += get<1>(temp);
-
-							if (get<2>(boxes_temp) < C) {
-								truck.push_back(make_pair(get<1>(boxes_temp), get<2>(boxes_temp)));
-								C -= get<2>(boxes_temp);
-							}
-							else {
-								truck.push_back(make_pair(get<1>(boxes_temp), C));
-								C = 0;
-							}
-
-							sort(truck.begin(), truck.end());
-						}
-						else {
-							if (get<2>(boxes_temp) < C) {
-								truck.push_back(make_pair(get<1>(boxes_temp), get<2>(boxes_temp)));
-								C -= get<2>(boxes_temp);
-							}
-							else {
-								truck.push_back(make_pair(get<1>(boxes_temp), C));
-								C = 0;
-							}
-
-							sort(truck.begin(), truck.end());
-						}
-					}
-				}
-			}
+			ans += min_capacity;
 		}
 	}
 
 	cout << ans;
+
+	return 0;
 }
