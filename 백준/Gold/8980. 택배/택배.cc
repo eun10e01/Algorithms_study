@@ -61,7 +61,7 @@ int main() {
 
 			boxes.pop();
 
-			//트럭이 현재 비어있다면 용량만큼의 택배를 그냥 싣기
+			//트럭이 현재 비어있다면 용량만큼의 택배를 그냥 넣기
 			if (truck.empty()) {
 				if (get<2>(boxes_temp) < C) {
 					truck.push_back(make_pair(get<1>(boxes_temp), get<2>(boxes_temp)));
@@ -74,7 +74,7 @@ int main() {
 					}
 				}
 			}
-			else { //비어있지 않다면 택배를 싣고 정렬하기
+			else { //비어있지 않다면 택배를 넣고 정렬하기
 				if (get<2>(boxes_temp) < C) {
 					truck.push_back(make_pair(get<1>(boxes_temp), get<2>(boxes_temp)));
 					C -= get<2>(boxes_temp);
@@ -103,16 +103,33 @@ int main() {
 						}
 					}
 					else {
-						if (get<2>(boxes_temp) < C) {
-							truck.push_back(make_pair(get<1>(boxes_temp), get<2>(boxes_temp)));
-							C -= get<2>(boxes_temp);
+						if (C + get<1>(temp) <= get<2>(boxes_temp)) {
+							truck.pop_back();
+							C += get<1>(temp);
+
+							if (get<2>(boxes_temp) < C) {
+								truck.push_back(make_pair(get<1>(boxes_temp), get<2>(boxes_temp)));
+								C -= get<2>(boxes_temp);
+							}
+							else {
+								truck.push_back(make_pair(get<1>(boxes_temp), C));
+								C = 0;
+							}
+
+							sort(truck.begin(), truck.end());
 						}
 						else {
-							truck.push_back(make_pair(get<1>(boxes_temp), C));
-							C = 0;
-						}
+							if (get<2>(boxes_temp) < C) {
+								truck.push_back(make_pair(get<1>(boxes_temp), get<2>(boxes_temp)));
+								C -= get<2>(boxes_temp);
+							}
+							else {
+								truck.push_back(make_pair(get<1>(boxes_temp), C));
+								C = 0;
+							}
 
-						sort(truck.begin(), truck.end());
+							sort(truck.begin(), truck.end());
+						}
 					}
 				}
 			}
