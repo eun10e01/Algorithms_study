@@ -26,7 +26,7 @@ int main() {
 	}
 
 	sort(boxes.begin(), boxes.end(), [](auto a, auto b) {
-		if (get<1>(a) == get<1>(b)) { //배송지가 같다면
+		if (get<0>(a) == get<0>(b)) { //배송지가 같다면
 			return get<1>(a) > get<1>(b); //출발지가 큰 번호가 먼저
 		}
 		return get<0>(a) < get<0>(b); //배송지가 작은것이 먼저
