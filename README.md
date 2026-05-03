@@ -12,3 +12,27 @@ This repository contains my solution to algorithmic problems.
 + [Baekjoon](https://www.acmicpc.net/)
 + [Solved.ac](https://solved.ac/)
 + [Programmers](https://programmers.co.kr/)
+
+<!---LeetCode Topics Start-->
+# LeetCode Topics
+## Array
+|  |
+| ------- |
+| [0079-word-search](https://github.com/eun10e01/Algorithms_study/tree/master/0079-word-search) |
+## String
+|  |
+| ------- |
+| [0079-word-search](https://github.com/eun10e01/Algorithms_study/tree/master/0079-word-search) |
+## Backtracking
+|  |
+| ------- |
+| [0079-word-search](https://github.com/eun10e01/Algorithms_study/tree/master/0079-word-search) |
+## Depth-First Search
+|  |
+| ------- |
+| [0079-word-search](https://github.com/eun10e01/Algorithms_study/tree/master/0079-word-search) |
+## Matrix
+|  |
+| ------- |
+| [0079-word-search](https://github.com/eun10e01/Algorithms_study/tree/master/0079-word-search) |
+<!---LeetCode Topics End-->
