@@ -1,6 +1,6 @@
 # [Bronze V] 두 정수 더하기 (A+B) - 1000
 
-[문제 링크]([https://jungol.co.kr/problem/1000])
+[문제 링크](https://jungol.co.kr/problem/1000)
 
 ### 성능 요약
 
