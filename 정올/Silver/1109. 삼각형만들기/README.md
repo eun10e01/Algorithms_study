@@ -1,4 +1,4 @@
-# [Silver Ⅴ] 자리올림 횟수 찾기 - 1040
+# [Silver Ⅴ] 삼각형만들기 - 1109
 
 [문제 링크](https://jungol.co.kr/problem/1109)
 
