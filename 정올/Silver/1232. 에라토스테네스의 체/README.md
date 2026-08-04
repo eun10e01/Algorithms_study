@@ -1,4 +1,4 @@
-# [Silver Ⅴ] 에라토스테네스의  - 1232
+# [Silver Ⅴ] 에라토스테네스의 체 - 1232
 
 [문제 링크](https://jungol.co.kr/problem/1232)
 
