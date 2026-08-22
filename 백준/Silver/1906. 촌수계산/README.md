@@ -1,4 +1,4 @@
-# [Silver Ⅲ] 랜선 자르기 - 1654 
+# [Silver Ⅲ] 촌수계산 - 1906 
 
 [문제 링크](https://jungol.co.kr/problem/1906) 
 
